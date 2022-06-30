@@ -1,7 +1,7 @@
 docx_mailmerge==0.5.0
 docxtpl==0.14.2
 fitz==0.0.1.dev2
-mailmerge==2.2.1
+docx-mailmerge
 numpy==1.21.5
 pandas==1.4.2
 Pillow==9.1.1
