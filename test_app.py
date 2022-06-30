@@ -53,7 +53,8 @@ if file_excel is not None:
     else:
         dictionary["gesetz"] = ""
         dictionary["gesetz1"] = ""
-    save_uploaded_file(file_excel)
+    # save_uploaded_file(file_excel)
+    st.write(dictionary)
     
 # print(dictionary["gesetz"])
 #DEST_FILE = 'MWA_2.docx'
