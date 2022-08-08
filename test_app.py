@@ -165,10 +165,10 @@ def read_pdf(file_name, pictures):
     nahversorgung_page = doc.load_page(20)  # number of page
     erreichbarkeit_page = doc.load_page(21)  # number of page
     bauvorhaben_page = doc.load_page(22)  # number of page
-    pictures['vergleichsobjekte_page'] = vergleichsobjekte_page.get_pixmap(dpi=600).tobytes("png")
-    pictures['erreichbarkeit_page'] = erreichbarkeit_page.get_pixmap(dpi=600).tobytes("png")
-    pictures['bauvorhaben_page'] = bauvorhaben_page.get_pixmap(dpi=600).tobytes("png")
-    pictures['nahversorgung_page'] = nahversorgung_page.get_pixmap(dpi=600).tobytes("png")
+    pictures['vergleichsobjekte_page'] = BytesIO(vergleichsobjekte_page.get_pixmap(dpi=600).pil_tobytes("png"))
+    pictures['erreichbarkeit_page'] = BytesIO(erreichbarkeit_page.get_pixmap(dpi=600).pil_tobytes("png"))
+    pictures['bauvorhaben_page'] = BytesIO(bauvorhaben_page.get_pixmap(dpi=600).pil_tobytes("png"))
+    pictures['nahversorgung_page'] = BytesIO(nahversorgung_page.get_pixmap(dpi=600).pil_tobytes("png"))
     return pictures
 
 def read_pictures(uploaded_files, pictures):
@@ -242,6 +242,11 @@ def change_pictures():
     tpl.replace_pic('maps', pictures['png_maps'])
     tpl.replace_pic('flur', pictures['png_flur'])
     tpl.replace_pic('larm', pictures['png_larm'])
+    tpl.replace_pic('Grafik 25', pictures['nahversorgung_page'])
+    tpl.replace_pic('Grafik 55', pictures['erreichbarkeit_page'])
+    tpl.replace_pic('Grafik 82', pictures['bauvorhaben_page'])
+    tpl.replace_pic('Grafik 58', pictures['vergleichsobjekte_page'])
+
 # initaite a dictionary to store the pictures
 pictures = {}
 # upload 2 files 
