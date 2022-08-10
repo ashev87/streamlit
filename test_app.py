@@ -165,10 +165,10 @@ def read_pdf(file_name, pictures):
     nahversorgung_page = doc.load_page(20)  # number of page
     erreichbarkeit_page = doc.load_page(21)  # number of page
     bauvorhaben_page = doc.load_page(22)  # number of page
-    pictures['vergleichsobjekte_page'] = BytesIO(vergleichsobjekte_page.get_pixmap(dpi=300).pil_tobytes("png"))
-    pictures['erreichbarkeit_page'] = BytesIO(erreichbarkeit_page.get_pixmap(dpi=300).pil_tobytes("png"))
-    pictures['bauvorhaben_page'] = BytesIO(bauvorhaben_page.get_pixmap(dpi=300).pil_tobytes("png"))
-    pictures['nahversorgung_page'] = BytesIO(nahversorgung_page.get_pixmap(dpi=300).pil_tobytes("png"))
+    pictures['vergleichsobjekte_page'] = BytesIO(vergleichsobjekte_page.get_pixmap(dpi=150).pil_tobytes("png"))
+    pictures['erreichbarkeit_page'] = BytesIO(erreichbarkeit_page.get_pixmap(dpi=150).pil_tobytes("png"))
+    pictures['bauvorhaben_page'] = BytesIO(bauvorhaben_page.get_pixmap(dpi=150).pil_tobytes("png"))
+    pictures['nahversorgung_page'] = BytesIO(nahversorgung_page.get_pixmap(dpi=150).pil_tobytes("png"))
     return pictures
 
 def read_pictures(uploaded_files, pictures):
