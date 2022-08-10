@@ -173,40 +173,40 @@ def read_pdf(file_name, pictures):
 
 def read_pictures(uploaded_files, pictures):
     for uploaded_file in uploaded_files:
-        if uploaded_file.name == '1.jpg'.upper():
+        if uploaded_file.name == '1.jpg' or uploaded_file.name == '1.png':
             jpg_1 = uploaded_file
             pictures['jpg_1'] = jpg_1
-        elif uploaded_file.name == '2.jpg'.upper():
+        elif uploaded_file.name == '2.jpg' or uploaded_file.name == '2.png':
             jpg_2 = uploaded_file
             pictures['jpg_2'] = jpg_2
-        elif uploaded_file.name == '3.jpg'.upper():
+        elif uploaded_file.name == '3.jpg' or uploaded_file.name == '3.png':
             jpg_3 = uploaded_file
             pictures['jpg_3'] = jpg_3
-        elif uploaded_file.name == '4.jpg'.upper():
+        elif uploaded_file.name == '4.jpg' or uploaded_file.name == '4.png':
             jpg_4 = uploaded_file
             pictures['jpg_4'] = jpg_4
-        elif uploaded_file.name == '5.jpg'.upper():
+        elif uploaded_file.name == '5.jpg' or uploaded_file.name == '5.png':
             jpg_5 = uploaded_file
             pictures['jpg_5'] = jpg_5
-        elif uploaded_file.name == '6.jpg'.upper():
+        elif uploaded_file.name == '6.jpg' or uploaded_file.name == '6.png':
             jpg_6 = uploaded_file
             pictures['jpg_6'] = jpg_6
-        elif uploaded_file.name == '7.jpg'.upper():
+        elif uploaded_file.name == '7.jpg' or uploaded_file.name == '7.png':
             jpg_7 = uploaded_file
             pictures['jpg_7'] = jpg_7
-        elif uploaded_file.name == '8.jpg'.upper():
+        elif uploaded_file.name == '8.jpg' or uploaded_file.name == '8.png':
             jpg_8 = uploaded_file
             pictures['jpg_8'] = jpg_8
-        elif uploaded_file.name == '9.jpg'.upper():
+        elif uploaded_file.name == '9.jpg' or uploaded_file.name == '9.png':
             jpg_9 = uploaded_file
             pictures['jpg_9'] = jpg_9
-        elif uploaded_file.name == '10.jpg'.upper():
+        elif uploaded_file.name == '10.jpg' or uploaded_file.name == '10.png':
             jpg_10 = uploaded_file
             pictures['jpg_10'] = jpg_10
-        elif uploaded_file.name == '11.jpg'.upper():
+        elif uploaded_file.name == '11.jpg' or uploaded_file.name == '11.png':
             jpg_11 = uploaded_file
             pictures['jpg_11'] = jpg_11
-        elif uploaded_file.name == '12.jpg'.upper():
+        elif uploaded_file.name == '12.jpg' or uploaded_file.name == '12.png':
             jpg_12 = uploaded_file
             pictures['jpg_12'] = jpg_12
         elif uploaded_file.name == 'deckseite.png':
