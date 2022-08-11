@@ -1,8 +1,4 @@
-https://api.propstack.de/v1/brokers?api_key=GIUi85PzLnOyegzs4idAXMhY5Jd_Fzj4gYy6P5T8
 
-https://api.propstack.de/v1/units?api_key=GIUi85PzLnOyegzs4idAXMhY5Jd_Fzj4gYy6P5T8
-
-https://api.propstack.de/v1/documents?property=644102?api_key=GIUi85PzLnOyegzs4idAXMhY5Jd_Fzj4gYy6P5T8
 
 DK:
 remove empty bullet points
