@@ -170,7 +170,7 @@ def read_pdf(file_name, pictures):
     pictures['erreichbarkeit_page'] = BytesIO(erreichbarkeit_page.get_pixmap(dpi=150).pil_tobytes("png"))
     pictures['bauvorhaben_page'] = BytesIO(bauvorhaben_page.get_pixmap(dpi=150).pil_tobytes("png"))
     pictures['nahversorgung_page'] = BytesIO(nahversorgung_page.get_pixmap(dpi=150).pil_tobytes("png"))
-    st.write(sys.getsizeof(pictures['vergleichsobjekte_page']/1024))
+    st.write(sys.getsizeof(pictures['vergleichsobjekte_page'])/1024, "kB")
     return pictures
 
 def read_pictures(uploaded_files, pictures):
@@ -248,8 +248,12 @@ def change_pictures():
     tpl.replace_pic('Grafik 55', pictures['erreichbarkeit_page'])
     tpl.replace_pic('Grafik 82', pictures['bauvorhaben_page'])
     tpl.replace_pic('Grafik 58', pictures['vergleichsobjekte_page'])
-    st.write(sys.getsizeof(pictures['vergleichsobjekte_page']/1024))
+    st.write(sys.getsizeof(pictures['vergleichsobjekte_page'])/1024, "kB")
 
+# Logo and Title
+image = Image.open('dk-logo-black.png')
+st.title("DK - Cool MWA Tool")
+st.write("Creating a an MWA the cool way!")
 # initaite a dictionary to store the pictures
 pictures = {}
 # upload 2 files 

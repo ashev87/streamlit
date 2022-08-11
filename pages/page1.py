@@ -1,5 +1,6 @@
 # %%
 import contextlib
+import secrets
 import time
 from unicodedata import name
 import pandas as pd
@@ -21,7 +22,7 @@ def app():
     st.image(image) # , use_column_width=True)
     st.title("DK - Cool MWA Tool")
     st.write("Creating a cool Market analysis on the basis of Propstack data")
-    api_key = 'GIUi85PzLnOyegzs4idAXMhY5Jd_Fzj4gYy6P5T8'
+    api_key = secrets.api_key
     url = "https://api.propstack.de/v1/"
     # TODO add cache to query only once an hour
     search = st.text_input("Search for an object, searches in unit_id, street, zip_code, city, Bezirk, exposee_id", 644102)
