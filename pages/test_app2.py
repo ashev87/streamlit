@@ -13,6 +13,7 @@ from base64 import b64decode
 import sys
 
 def read_excel(file_name):
+    """Reads the excel file and returns a dictionary with the data"""
     df = pd.read_excel(file_excel, sheet_name='script', header=None, names=['keys', 'values'], na_values='(None)', usecols = 'A:B')
     df = df.fillna('')
     keys = df['keys'].tolist()
@@ -41,6 +42,7 @@ def read_excel(file_name):
     return dictionary
 
 def read_docx(file_name):
+    """ Reads a docx file and switches the template fields with the values from the dictionary """
     document = MailMerge(file_word)
     print('Die Mergefelder werden ersetzt...')
     document.merge(date=str(dictionary['Datum'].strftime("%d. %B %Y")),
@@ -160,6 +162,7 @@ def read_docx(file_name):
     return dest_file
 
 def read_pdf(file_name, pictures):
+    """ Reads a pdf file adds the pages to the pictures list and returns the pictures list """
     doc = fitz.open(stream=file_name.read(), filetype="pdf")
     print("Die Seiten von Pricehubble werden gespriechert")
     vergleichsobjekte_page = doc.load_page(8)  # number of page
@@ -167,6 +170,7 @@ def read_pdf(file_name, pictures):
     erreichbarkeit_page = doc.load_page(21)  # number of page
     bauvorhaben_page = doc.load_page(22)  # number of page
     pictures['vergleichsobjekte_page'] = BytesIO(vergleichsobjekte_page.get_pixmap(dpi=150).pil_tobytes("png"))
+    st.write(sys.getsizeof(BytesIO(vergleichsobjekte_page.get_pixmap(dpi=150).pil_tobytes("png"))/1024, "kB"))
     pictures['erreichbarkeit_page'] = BytesIO(erreichbarkeit_page.get_pixmap(dpi=150).pil_tobytes("png"))
     pictures['bauvorhaben_page'] = BytesIO(bauvorhaben_page.get_pixmap(dpi=150).pil_tobytes("png"))
     pictures['nahversorgung_page'] = BytesIO(nahversorgung_page.get_pixmap(dpi=150).pil_tobytes("png"))
@@ -174,6 +178,7 @@ def read_pdf(file_name, pictures):
     return pictures
 
 def read_pictures(uploaded_files, pictures):
+    """Assigns the uploaded files to the pictures dictionary"""
     for uploaded_file in uploaded_files:
         if uploaded_file.name == '1.jpg' or uploaded_file.name == '1.png':
             jpg_1 = uploaded_file
@@ -228,6 +233,7 @@ def read_pictures(uploaded_files, pictures):
     return pictures
 
 def change_pictures():
+    """ Change the pictures in the template """
     tpl.replace_pic('deckseite.png', pictures['jpg_deckseite'])
     tpl.replace_pic('picture1', pictures['jpg_1'])
     tpl.replace_pic('picture2', pictures['jpg_2'])
@@ -248,7 +254,6 @@ def change_pictures():
     tpl.replace_pic('Grafik 55', pictures['erreichbarkeit_page'])
     tpl.replace_pic('Grafik 82', pictures['bauvorhaben_page'])
     tpl.replace_pic('Grafik 58', pictures['vergleichsobjekte_page'])
-    st.write(sys.getsizeof(pictures['vergleichsobjekte_page'])/1024, "kB")
 
 # Logo and Title
 image = Image.open('dk-logo-black.png')
