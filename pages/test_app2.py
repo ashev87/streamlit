@@ -1,16 +1,12 @@
 from io import BytesIO
 from docxtpl import DocxTemplate
-from pathlib import Path
-import os
 import pandas as pd
 from mailmerge import MailMerge
-import locale
 import fitz
-import zipfile
 import streamlit as st
 from PIL import Image
 from base64 import b64decode
-import sys
+from tempfile import TemporaryFile
 
 def read_excel(file_name):
     """Reads the excel file and returns a dictionary with the data"""
@@ -160,6 +156,21 @@ def read_docx(file_name):
     dest_file = "MWA.docx"
     document.write(dest_file)
     return dest_file
+    
+def create_image_buffer_from_pdf_page(page_object):
+    """
+    Create a buffer from a pdf page object.
+    """
+    zoom = 3.5
+    mat = fitz.Matrix(zoom, zoom)
+    pix = page_object.get_pixmap(matrix = mat)
+    img = Image.frombytes("RGB", \
+                         [pix.width, pix.height], \
+                         pix.samples)
+    buffer = TemporaryFile()            # create a buffer
+    img.save(buffer, format="PNG")	# save to buffer
+    buffer.seek(0)	                # return to the start of the buffer
+    return buffer
 
 def read_pdf(file_name, pictures):
     """ Reads a pdf file adds the pages to the pictures list and returns the pictures list """
@@ -169,12 +180,10 @@ def read_pdf(file_name, pictures):
     nahversorgung_page = doc.load_page(20)  # number of page
     erreichbarkeit_page = doc.load_page(21)  # number of page
     bauvorhaben_page = doc.load_page(22)  # number of page
-    pictures['vergleichsobjekte_page'] = BytesIO(vergleichsobjekte_page.get_pixmap(dpi=150).pil_tobytes("png"))
-    st.write(sys.getsizeof(vergleichsobjekte_page.get_pixmap(dpi=150).pil_tobytes("png")))
-    st.write(sys.getsizeof(vergleichsobjekte_page.get_pixmap(dpi=150)))
-    pictures['erreichbarkeit_page'] = BytesIO(erreichbarkeit_page.get_pixmap(dpi=150).pil_tobytes("png"))
-    pictures['bauvorhaben_page'] = BytesIO(bauvorhaben_page.get_pixmap(dpi=150).pil_tobytes("png"))
-    pictures['nahversorgung_page'] = BytesIO(nahversorgung_page.get_pixmap(dpi=150).pil_tobytes("png"))
+    pictures['vergleichsobjekte_page'] = create_image_buffer_from_pdf_page(vergleichsobjekte_page)
+    pictures['erreichbarkeit_page'] = create_image_buffer_from_pdf_page(erreichbarkeit_page)
+    pictures['bauvorhaben_page'] = create_image_buffer_from_pdf_page(bauvorhaben_page)
+    pictures['nahversorgung_page'] = create_image_buffer_from_pdf_page(nahversorgung_page)
     return pictures
 
 def read_pictures(uploaded_files, pictures):

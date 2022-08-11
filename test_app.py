@@ -1,17 +1,15 @@
 from io import BytesIO
 from docxtpl import DocxTemplate
-from pathlib import Path
-import os
 import pandas as pd
 from mailmerge import MailMerge
-import locale
 import fitz
-import zipfile
 import streamlit as st
 from PIL import Image
 from base64 import b64decode
+from tempfile import TemporaryFile
 
 def read_excel(file_name):
+    """Reads the excel file and returns a dictionary with the data"""
     df = pd.read_excel(file_excel, sheet_name='script', header=None, names=['keys', 'values'], na_values='(None)', usecols = 'A:B')
     df = df.fillna('')
     keys = df['keys'].tolist()
@@ -40,6 +38,7 @@ def read_excel(file_name):
     return dictionary
 
 def read_docx(file_name):
+    """ Reads a docx file and switches the template fields with the values from the dictionary """
     document = MailMerge(file_word)
     print('Die Mergefelder werden ersetzt...')
     document.merge(date=str(dictionary['Datum'].strftime("%d. %B %Y")),
@@ -157,21 +156,38 @@ def read_docx(file_name):
     dest_file = "MWA.docx"
     document.write(dest_file)
     return dest_file
+    
+def create_image_buffer_from_pdf_page(page_object):
+    """
+    Create a buffer from a pdf page object.
+    """
+    zoom = 3.5
+    mat = fitz.Matrix(zoom, zoom)
+    pix = page_object.get_pixmap(matrix = mat)
+    img = Image.frombytes("RGB", \
+                         [pix.width, pix.height], \
+                         pix.samples)
+    buffer = TemporaryFile()            # create a buffer
+    img.save(buffer, format="PNG")	# save to buffer
+    buffer.seek(0)	                # return to the start of the buffer
+    return buffer
 
 def read_pdf(file_name, pictures):
+    """ Reads a pdf file adds the pages to the pictures list and returns the pictures list """
     doc = fitz.open(stream=file_name.read(), filetype="pdf")
     print("Die Seiten von Pricehubble werden gespriechert")
     vergleichsobjekte_page = doc.load_page(8)  # number of page
     nahversorgung_page = doc.load_page(20)  # number of page
     erreichbarkeit_page = doc.load_page(21)  # number of page
     bauvorhaben_page = doc.load_page(22)  # number of page
-    pictures['vergleichsobjekte_page'] = BytesIO(vergleichsobjekte_page.get_pixmap(dpi=150).pil_tobytes("png"))
-    pictures['erreichbarkeit_page'] = BytesIO(erreichbarkeit_page.get_pixmap(dpi=150).pil_tobytes("png"))
-    pictures['bauvorhaben_page'] = BytesIO(bauvorhaben_page.get_pixmap(dpi=150).pil_tobytes("png"))
-    pictures['nahversorgung_page'] = BytesIO(nahversorgung_page.get_pixmap(dpi=150).pil_tobytes("png"))
+    pictures['vergleichsobjekte_page'] = create_image_buffer_from_pdf_page(vergleichsobjekte_page)
+    pictures['erreichbarkeit_page'] = create_image_buffer_from_pdf_page(erreichbarkeit_page)
+    pictures['bauvorhaben_page'] = create_image_buffer_from_pdf_page(bauvorhaben_page)
+    pictures['nahversorgung_page'] = create_image_buffer_from_pdf_page(nahversorgung_page)
     return pictures
 
 def read_pictures(uploaded_files, pictures):
+    """Assigns the uploaded files to the pictures dictionary"""
     for uploaded_file in uploaded_files:
         if uploaded_file.name == '1.jpg' or uploaded_file.name == '1.png':
             jpg_1 = uploaded_file
@@ -226,6 +242,7 @@ def read_pictures(uploaded_files, pictures):
     return pictures
 
 def change_pictures():
+    """ Change the pictures in the template """
     tpl.replace_pic('deckseite.png', pictures['jpg_deckseite'])
     tpl.replace_pic('picture1', pictures['jpg_1'])
     tpl.replace_pic('picture2', pictures['jpg_2'])
@@ -247,6 +264,10 @@ def change_pictures():
     tpl.replace_pic('Grafik 82', pictures['bauvorhaben_page'])
     tpl.replace_pic('Grafik 58', pictures['vergleichsobjekte_page'])
 
+# Logo and Title
+image = Image.open('dk-logo-black.png')
+st.title("DK - Cool MWA Tool")
+st.write("Creating a an MWA the cool way!")
 # initaite a dictionary to store the pictures
 pictures = {}
 # upload 2 files 
