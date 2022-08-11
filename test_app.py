@@ -267,7 +267,7 @@ def change_pictures():
 # Logo and Title
 image = Image.open('dk-logo-black.png')
 st.title("DK - Cool MWA Tool")
-st.write("Creating a an MWA the cool way!")
+st.write("Creating an MWA the cool way!")
 # initaite a dictionary to store the pictures
 pictures = {}
 # upload 2 files 
