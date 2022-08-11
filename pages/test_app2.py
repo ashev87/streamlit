@@ -170,11 +170,11 @@ def read_pdf(file_name, pictures):
     erreichbarkeit_page = doc.load_page(21)  # number of page
     bauvorhaben_page = doc.load_page(22)  # number of page
     pictures['vergleichsobjekte_page'] = BytesIO(vergleichsobjekte_page.get_pixmap(dpi=150).pil_tobytes("png"))
-    st.write(sys.getsizeof(BytesIO(vergleichsobjekte_page.get_pixmap(dpi=150).pil_tobytes("png")))/1024, "kB")
+    st.write(sys.getsizeof(vergleichsobjekte_page.get_pixmap(dpi=150).pil_tobytes("png")))
+    st.write(sys.getsizeof(vergleichsobjekte_page.get_pixmap(dpi=150)))
     pictures['erreichbarkeit_page'] = BytesIO(erreichbarkeit_page.get_pixmap(dpi=150).pil_tobytes("png"))
     pictures['bauvorhaben_page'] = BytesIO(bauvorhaben_page.get_pixmap(dpi=150).pil_tobytes("png"))
     pictures['nahversorgung_page'] = BytesIO(nahversorgung_page.get_pixmap(dpi=150).pil_tobytes("png"))
-    st.write(sys.getsizeof(pictures['vergleichsobjekte_page'])/1024, "kB")
     return pictures
 
 def read_pictures(uploaded_files, pictures):
