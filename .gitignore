@@ -3,3 +3,4 @@ pages_old/
 __pycache__/
 .streamlit/
 secrets.toml
+data.csv
