@@ -189,52 +189,53 @@ def read_pdf(file_name, pictures):
 def read_pictures(uploaded_files, pictures):
     """Assigns the uploaded files to the pictures dictionary"""
     for uploaded_file in uploaded_files:
-        if uploaded_file.name == '1.jpg' or uploaded_file.name == '1.png':
+        file_name = uploaded_file.name.lower()  # Convert file name to lowercase
+        if file_name == '1.jpg' or file_name == '1.png':
             jpg_1 = uploaded_file
             pictures['jpg_1'] = jpg_1
-        elif uploaded_file.name == '2.jpg' or uploaded_file.name == '2.png':
+        elif file_name == '2.jpg' or file_name == '2.png':
             jpg_2 = uploaded_file
             pictures['jpg_2'] = jpg_2
-        elif uploaded_file.name == '3.jpg' or uploaded_file.name == '3.png':
+        elif file_name == '3.jpg' or file_name == '3.png':
             jpg_3 = uploaded_file
             pictures['jpg_3'] = jpg_3
-        elif uploaded_file.name == '4.jpg' or uploaded_file.name == '4.png':
+        elif file_name == '4.jpg' or file_name == '4.png':
             jpg_4 = uploaded_file
             pictures['jpg_4'] = jpg_4
-        elif uploaded_file.name == '5.jpg' or uploaded_file.name == '5.png':
+        elif file_name == '5.jpg' or file_name == '5.png':
             jpg_5 = uploaded_file
             pictures['jpg_5'] = jpg_5
-        elif uploaded_file.name == '6.jpg' or uploaded_file.name == '6.png':
+        elif file_name == '6.jpg' or file_name == '6.png':
             jpg_6 = uploaded_file
             pictures['jpg_6'] = jpg_6
-        elif uploaded_file.name == '7.jpg' or uploaded_file.name == '7.png':
+        elif file_name == '7.jpg' or file_name == '7.png':
             jpg_7 = uploaded_file
             pictures['jpg_7'] = jpg_7
-        elif uploaded_file.name == '8.jpg' or uploaded_file.name == '8.png':
+        elif file_name == '8.jpg' or file_name == '8.png':
             jpg_8 = uploaded_file
             pictures['jpg_8'] = jpg_8
-        elif uploaded_file.name == '9.jpg' or uploaded_file.name == '9.png':
+        elif file_name == '9.jpg' or file_name == '9.png':
             jpg_9 = uploaded_file
             pictures['jpg_9'] = jpg_9
-        elif uploaded_file.name == '10.jpg' or uploaded_file.name == '10.png':
+        elif file_name == '10.jpg' or file_name == '10.png':
             jpg_10 = uploaded_file
             pictures['jpg_10'] = jpg_10
-        elif uploaded_file.name == '11.jpg' or uploaded_file.name == '11.png':
+        elif file_name == '11.jpg' or file_name == '11.png':
             jpg_11 = uploaded_file
             pictures['jpg_11'] = jpg_11
-        elif uploaded_file.name == '12.jpg' or uploaded_file.name == '12.png':
+        elif file_name == '12.jpg' or file_name == '12.png':
             jpg_12 = uploaded_file
             pictures['jpg_12'] = jpg_12
-        elif uploaded_file.name == 'deckseite.png':
+        elif file_name == 'deckseite.png':
             jpg_deckseite = uploaded_file
             pictures['jpg_deckseite'] = jpg_deckseite
-        elif uploaded_file.name == 'maps.png':
+        elif file_name == 'maps.png':
             png_maps = uploaded_file
             pictures['png_maps'] = png_maps
-        elif uploaded_file.name == 'flur.png':
+        elif file_name == 'flur.png':
             png_flur = uploaded_file
             pictures['png_flur'] = png_flur
-        elif uploaded_file.name == 'larm.png':
+        elif file_name == 'larm.png':
             png_larm = uploaded_file
             pictures['png_larm'] = png_larm
         else:
