@@ -177,9 +177,12 @@ def read_pdf(file_name, pictures):
     doc = fitz.open(stream=file_name.read(), filetype="pdf")
     print("Die Seiten von Pricehubble werden gespriechert")
     vergleichsobjekte_page = doc.load_page(8)  # number of page
+    #nahversorgung_page = doc.load_page(20)  # number of page previous version of pricehubble file
     nahversorgung_page = doc.load_page(20)  # number of page
-    erreichbarkeit_page = doc.load_page(21)  # number of page
-    bauvorhaben_page = doc.load_page(22)  # number of page
+    # erreichbarkeit_page = doc.load_page(21)  # number of page previous version of pricehubble file
+    erreichbarkeit_page = doc.load_page(17)  # number of page
+    # bauvorhaben_page = doc.load_page(22)  # number of page previous version of pricehubble file
+    bauvorhaben_page = doc.load_page(18)  # number of page
     pictures['vergleichsobjekte_page'] = create_image_buffer_from_pdf_page(vergleichsobjekte_page)
     pictures['erreichbarkeit_page'] = create_image_buffer_from_pdf_page(erreichbarkeit_page)
     pictures['bauvorhaben_page'] = create_image_buffer_from_pdf_page(bauvorhaben_page)
