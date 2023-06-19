@@ -178,7 +178,7 @@ def read_pdf(file_name, pictures):
     print("Die Seiten von Pricehubble werden gespriechert")
     vergleichsobjekte_page = doc.load_page(8)  # number of page
     #nahversorgung_page = doc.load_page(20)  # number of page previous version of pricehubble file
-    nahversorgung_page = doc.load_page(20)  # number of page
+    nahversorgung_page = doc.load_page(16)  # number of page
     # erreichbarkeit_page = doc.load_page(21)  # number of page previous version of pricehubble file
     erreichbarkeit_page = doc.load_page(17)  # number of page
     # bauvorhaben_page = doc.load_page(22)  # number of page previous version of pricehubble file
